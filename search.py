@@ -2,11 +2,15 @@ import math, random, sys, tsp
 import matplotlib.pyplot as plt
 
 
-# Generate a random TSP tour originating and ending at the same location
-# Example:
-#     Input: Nodes [a, b, c, d, e]
-#     Output: Path [e, d, c, a, b, e]
+
 def gen_random_path(nodes):
+    """
+    Generate a random TSP tour originating and ending at the same location
+    
+    Input: Nodes [a, b, c, d, e]
+    
+    Output: Path [e, d, c, a, b, e]
+    """
     shuffled = random.sample(nodes, len(nodes))
     shuffled.append(shuffled[0])
     path = tsp.Path(shuffled, 0)
@@ -14,9 +18,11 @@ def gen_random_path(nodes):
     return path
 
 
-# Acceptance Function
-# P(e, e', T) = 1 if e' < e, and exp(-(e' - e)/T) otherwise
+
 def accept(current_path, new_path, temp):
+    """
+    P(e, e', T) = 1 if e' < e, and exp(-(e' - e)/T) otherwise
+    """
     if new_path.dist < current_path.dist:
         return 1
     return math.exp(-(new_path.dist - current_path.dist) / temp)
